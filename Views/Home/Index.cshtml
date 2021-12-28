@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Game";
+}
+<div class="container mt-5 mb-3" id="GameContainer">
+    @*Begin Row of Controller*@
+    <div class="row row-cols-1 row-cols-md-2 g-4 mb-3" id="Controller">
+        <div class="col">
+            <div class="card h-100 ">
+
+                <div class="card-body d-flex justify-content-between">
+                    <h5 class="">Total score:</h5>
+                    <span class=" fs-4 fw-bold" id="Score"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 bg-light border-1">
+
+                <div class="card-body ">
+
+                    <div>
+                        <button class="btn btn-secondary" id="Start">Start</button>
+                        <button class="btn  btn-secondary d-none " id="PlayAgain">Play again</button>
+                        <button class="btn btn-secondary float-end d-none" id="Roll">Roll</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*End Row of Controller*@
+    @*Begin Row of Frame Table*@
+    <div class="row " style="min-height:468px">
+        <div class="col-12 col-lg-12">
+            <div class="table-responsive ">
+                <table class="table  table-bordered table-light table-hover" id="GameTable">
+                    <thead class="bg-light">
+                        <tr>
+                            <th scope="col">Frame</th>
+                            <th scope="col">Roll 1</th>
+                            <th scope="col">Roll 2</th>
+                            <th scope="col">Roll 3</th>
+                            <th scope="col">Bonus</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="Tbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @*End Row of Frame Table*@
+</div>
+@*//Game container*@
+
+@section Scripts {
+    <script src="~/js/bowling.js"></script>
+    <script>
+        const gameContainer = document.getElementById("GameContainer");
+
+        //start buttn on click display roll button
+        let startButton = document.getElementById("Start");
+        let rollButton = document.getElementById("Roll");
+        let playAgainButton = document.getElementById("PlayAgain");
+
+        startButton.addEventListener("click", startGame);
+        rollButton.addEventListener("click", rollBall);
+        let player;
+
+        function startGame() {
+            player = new Bowling(gameContainer);
+            //player.updateTable();
+            player.startGame();
+
+        }
+        function rollBall() {
+            player.roll();
+
+        }
+        playAgainButton.addEventListener("click", function () {
+            player.resetGame();
+
+        });
+    </script>
+}
